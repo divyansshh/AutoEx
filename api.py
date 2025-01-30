@@ -7,8 +7,9 @@ import queue
 import json
 from flask_cors import CORS
 import sys
+from flask import Flask, send_from_directory
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="webapp")
 CORS(app)
 obj={}
 queue=queue.Queue(maxsize=0)
@@ -31,7 +32,7 @@ def janitor():
 class Project:
     @app.route('/')
     def index():
-        return "Hello, World!"
+        return send_from_directory("webapp", "index.html")
 
     @app.route('/requests', methods=['POST'])
     def requests():
